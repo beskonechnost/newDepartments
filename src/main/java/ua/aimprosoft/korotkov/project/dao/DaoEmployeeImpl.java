@@ -20,6 +20,7 @@ public class DaoEmployeeImpl implements DaoEmployee{
     private static final String SQL_SELECT_EMPLOYEES_THIS_DEPARTMENT = "SELECT * FROM employees WHERE id_department=?";
     private static final String SQL_SELECT_ALL_EMPLOYEES = "SELECT * FROM employees";
     private static final String SQL_ADD_EMPLOYEE = "INSERT INTO employees(firstName, lastName, birthday, phone, email, id_department) VALUES (?,?,?,?,?,?)";
+    private static final String SQL_SELECT_EMPLOYEE_BY_ID = "SELECT * FROM employees WHERE employees.id=?";
 
     private static DaoEmployeeImpl instance;
 
@@ -95,8 +96,28 @@ public class DaoEmployeeImpl implements DaoEmployee{
     }
 
     @Override
-    public Employee findEmployeeById(int idEmployee) {
-        return null;
+    public Employee findEmployeeById(int idEmployee)throws DBException {
+        Employee employee = new Employee();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        Connection con = null;
+        try {
+            con = DBManager.getConnection();
+            pstmt = con.prepareStatement(SQL_SELECT_EMPLOYEE_BY_ID);
+            pstmt.setInt(1, idEmployee);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                employee = extractEmployee(rs);
+            }
+            con.commit();
+        } catch (SQLException ex) {
+            DBManager.rollback(con);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_EMPLOYEES, ex);
+            throw new DBException(Messages.ERR_CANNOT_OBTAIN_EMPLOYEES, ex);
+        } finally {
+            DBManager.close(con, pstmt, rs);
+        }
+        return employee;
     }
 
     @Override

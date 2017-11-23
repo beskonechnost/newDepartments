@@ -14,7 +14,6 @@ public class EncodingFilter implements Filter{
 
     public void destroy() {
         LOG.debug("Filter destruction starts");
-        // no op
         LOG.debug("Filter destruction finished");
     }
 

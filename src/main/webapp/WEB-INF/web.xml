@@ -7,20 +7,11 @@
 
 
     <display-name>newDepartments</display-name>
-    <welcome-file-list>
-        <welcome-file>start.jsp</welcome-file>
-    </welcome-file-list>
-<!--
-    <servlet>
-        <servlet-name>Controller</servlet-name>
-        <servlet-class>ua.aimprosoft.korotkov.web.Controller</servlet-class>
-    </servlet>
 
-    <servlet-mapping>
-        <servlet-name>Controller</servlet-name>
-        <url-pattern>/controller</url-pattern>
-    </servlet-mapping>
--->
+    <welcome-file-list>
+        <welcome-file>departments</welcome-file>
+    </welcome-file-list>
+
     <filter>
         <filter-name>EncodingFilter</filter-name>
         <filter-class>ua.aimprosoft.korotkov.project.web.filter.EncodingFilter</filter-class>
@@ -32,12 +23,8 @@
 
     <filter-mapping>
         <filter-name>EncodingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>*</url-pattern>
     </filter-mapping>
-
-    <listener>
-        <listener-class>ua.aimprosoft.korotkov.project.web.listener.ContextListener</listener-class>
-    </listener>
 
 </web-app>
 
