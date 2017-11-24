@@ -6,7 +6,7 @@
 <c:set var="title" value="Employees" scope="page" />
 <body>
 <a href="/departments">All departments</a>
-<a href="/employees">All employees</a>
+<a href="/employees?errorFlag=-1">All employees</a>
 <table id="main-container">
 
   <tr>
@@ -28,7 +28,6 @@
         <table border="1">
           <thead>
           <tr>
-            <td>№</td>
             <td>First Name</td>
             <td>Last Name</td>
             <td>Birthday</td>
@@ -39,11 +38,8 @@
           </tr>
           </thead>
 
-          <c:set var="k" value="0"/>
-          <c:forEach var="item" items="${employees}">
-            <c:set var="k" value="${k+1}"/>
+          <c:forEach var="item" items="${employees}" begin="0">
             <tr>
-              <td><${k}></td>
               <td>${item.firstName}</td>
               <td>${item.lastName}</td>
               <td>${item.birthday}</td>
@@ -127,32 +123,27 @@
                       <c:if test="${departmentId>0}">
                           <div>
                               <b>Department - ${departmentName}</b>
-                              <input type="hidden" name="nameDepartment" value="<c:out value="${departmentName}"></c:out>">
+                              <input type="hidden" name="nameDepartment" value="<c:out value="${nameDepartment}"></c:out>">
                           </div>
                       </c:if>
-                      <c:if test="${departmentId==0}">
+                      <c:if test="${departmentId==null || departmentId==0 || departmentId.isEmpty()}">
                           <div>
                           <c:if test="${errorFlag==1}">
                               <b><font size="1" color="red" face="Arial">${errorDepartmentEmployee}</font></b><br>
                           </c:if>
-                              <p>Select the desired department:</p>
+                              <b>Select the desired department:</b>
                               <select name="nameDepartment">
-                                  <option value="<c:out value="${departmentName}"/>"><c:out value="${departmentName}"/></option>
-
-                                  <c:if test="${departmentNameEmployee!=null}">
-                                      <c:set var="k2" value="0"/>
-                                      <c:forEach var="departments" items="${departments}">
-                                          <c:set var="k2" value="${k2+1}"/>
-                                          <c:if test="${departments.name==departmentNameEmployee}">
+                                  <c:if test="${nameDepartment!=null || nameDepartment!=0 || !nameDepartment.isEmpty()}">
+                                      <c:forEach var="departments" items="${departments}" begin="0">
+                                          <c:if test="${departments.name==nameDepartment}">
                                               <option selected value="<c:out value="${departments.name}"/>"><c:out value="${departments.name}"/></option>
                                           </c:if>
                                           <option value="<c:out value="${departments.name}"/>"><c:out value="${departments.name}"/></option>
                                       </c:forEach>
                                   </c:if>
-                                  <c:if test="${departmentNameEmployee==null}">
-                                      <c:set var="k2" value="0"/>
-                                      <c:forEach var="departments" items="${departments}">
-                                          <c:set var="k2" value="${k2+1}"/>
+                                  <c:if test="${nameDepartment==null || nameDepartment==0 || nameDepartment.isEmpty()}">
+                                      <option selected value="<c:out value=""/>"><c:out value=""/></option>
+                                      <c:forEach var="departments" items="${departments}" begin="0">
                                           <option value="<c:out value="${departments.name}"/>"><c:out value="${departments.name}"/></option>
                                       </c:forEach>
                                   </c:if>
@@ -242,22 +233,17 @@
                               </c:if>
                               <p>Select the desired department:</p>
                               <select name="nameDepartment">
-                                  <option value="<c:out value="${departmentName}"/>"><c:out value="${departmentName}"/></option>
-
-                                  <c:if test="${departmentNameEmployee!=null}">
-                                      <c:set var="k2" value="0"/>
-                                      <c:forEach var="departments" items="${departments}">
-                                          <c:set var="k2" value="${k2+1}"/>
-                                          <c:if test="${departments.name==departmentNameEmployee}">
+                                  <c:if test="${nameDepartment!=null}">
+                                      <c:forEach var="departments" items="${departments}" begin="0">
+                                          <c:if test="${departments.name==nameDepartment}">
                                               <option selected value="<c:out value="${departments.name}"/>"><c:out value="${departments.name}"/></option>
                                           </c:if>
                                           <option value="<c:out value="${departments.name}"/>"><c:out value="${departments.name}"/></option>
                                       </c:forEach>
                                   </c:if>
-                                  <c:if test="${departmentNameEmployee==null}">
-                                      <c:set var="k2" value="0"/>
-                                      <c:forEach var="departments" items="${departments}">
-                                          <c:set var="k2" value="${k2+1}"/>
+                                  <c:if test="${nameDepartment==null}">
+                                      <option value="<c:out value=""/>"><c:out value=""/></option>
+                                      <c:forEach var="departments" items="${departments}" begin="0">
                                           <option value="<c:out value="${departments.name}"/>"><c:out value="${departments.name}"/></option>
                                       </c:forEach>
                                   </c:if>

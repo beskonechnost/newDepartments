@@ -32,10 +32,12 @@ public class EmployeesServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String departmentIdString = request.getParameter("departmentId");
+        LOG.debug("departmentIdString -- > " + departmentIdString);
         List<Employee> employees = null;
         try {
-            if (departmentIdString == null) {
+            if (departmentIdString == null || departmentIdString.isEmpty()) {
                 employees = DaoEmployeeImpl.getInstance().findAllEmployees();
+                request.setAttribute("departments",DaoDepartmentImpl.getInstance().findDepartments());
             } else {
                 employees = DaoEmployeeImpl.getInstance().findEmployeesThisDepartment(Integer.parseInt(departmentIdString));
             }
@@ -75,6 +77,7 @@ public class EmployeesServlet extends HttpServlet {
                 request.setAttribute("phoneEmployee", request.getParameter("phoneEmployee"));
                 request.setAttribute("emailEmployee", request.getParameter("emailEmployee"));
                 request.setAttribute("nameDepartment", request.getParameter("nameDepartment"));
+                
                 if ((request.getParameter("errorFlag") != null && Integer.parseInt(request.getParameter("errorFlag")) != -1) || (request.getParameter("errorFlag") == null)) {
                     request.setAttribute("errorFlag", 1);
                 }
@@ -166,7 +169,7 @@ public class EmployeesServlet extends HttpServlet {
 
 
         try {
-            if (departmentIdString == null) {
+            if (departmentIdString == null || departmentIdString.isEmpty()) {
                 employees = DaoEmployeeImpl.getInstance().findAllEmployees();
             } else {
                 employees = DaoEmployeeImpl.getInstance().findEmployeesThisDepartment(Integer.parseInt(departmentIdString));
@@ -254,8 +257,8 @@ public class EmployeesServlet extends HttpServlet {
             errorsMap.put("errorEmailEmployee","The employee with this email already exists in the list. Please change it!");
         }
         //nameDepartment
-        if(nameDepartment==null){
-            errorsMap.put("errorEmailEmployee","You need to choose a department!");
+        if(nameDepartment==null || nameDepartment.isEmpty()){
+            errorsMap.put("errorDepartmentEmployee","You need to choose a department!");
         }
         return errorsMap;
     }

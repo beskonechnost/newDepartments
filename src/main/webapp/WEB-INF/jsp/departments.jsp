@@ -6,6 +6,7 @@
 <title>Departments</title>
 <body>
 <a href="/departments">All departments</a>
+<a href="/employees?errorFlag=-1">All employees</a>
 <table id="main-container">
 
     <tr>
@@ -59,8 +60,10 @@
                     <fieldset >
                     <legend>Add new department</legend>
                     <form id="add_form" action="/departments">
-                        <b><font size="5" color="red" face="Arial">${errorAddNewDepartment}</font></b><br>
                         <div>
+                            <c:if test="${errorFlag==1}">
+                                <b><font size="1" color="red" face="Arial">${errorAddNewDepartment}</font></b><br>
+                            </c:if>
                             <b>Enter the name of a new department: </b>
                             <input name="nameNewDepartment" value="<c:out value="${nameNewDepartment}"></c:out>">
                         </div>
@@ -92,10 +95,12 @@
                     <input type="hidden" name="flagUpdateDepartment" value="${1}" />
 
                     <div>
+                        <c:if test="${errorFlag==1}">
+                            <b><font size="1" color="red" face="Arial">${errorUpdateDepartment}</font></b><br>
+                        </c:if>
                         <b>Enter a new name this department:</b>
                         <input name="newNameUpdateDepartment" value="<c:out value="${updateDepartmentName}"></c:out>">
                     </div>
-                    <b><font size="5" color="red" face="Arial">${errorUpdateDepartment}</font></b><br>
                     <input type="submit" value="Update"><br/>
                 </form>
             </fieldset>

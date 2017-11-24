@@ -75,6 +75,7 @@ public class DepartmentsServlet extends HttpServlet {
                 }
 
                 if (flagErrorAddNewDepartment) {
+                    request.setAttribute("errorFlag", 1);
                     request.setAttribute("nameNewDepartment", nameNewDepartment);
                 } else {
                     Department department = new Department(nameNewDepartment);
@@ -131,6 +132,7 @@ public class DepartmentsServlet extends HttpServlet {
                     request.setAttribute("errorUpdateDepartment", errorUpdateDepartment);
                 }
                 if (flagErrorUpdateDepartment) {
+                    request.setAttribute("errorFlag", 1);
                     request.setAttribute("updateDepartmentName", updateDepartmentName);
                     request.setAttribute("flagUpdateDepartment", flagUpdateDepartment);
                 } else {
