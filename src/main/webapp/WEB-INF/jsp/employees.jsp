@@ -133,20 +133,12 @@
                           </c:if>
                               <b>Select the desired department:</b>
                               <select name="nameDepartment">
-                                  <c:if test="${nameDepartment!=null || nameDepartment!=0 || !nameDepartment.isEmpty()}">
                                       <c:forEach var="departments" items="${departments}" begin="0">
                                           <c:if test="${departments.name==nameDepartment}">
                                               <option selected value="<c:out value="${departments.name}"/>"><c:out value="${departments.name}"/></option>
                                           </c:if>
                                           <option value="<c:out value="${departments.name}"/>"><c:out value="${departments.name}"/></option>
                                       </c:forEach>
-                                  </c:if>
-                                  <c:if test="${nameDepartment==null || nameDepartment==0 || nameDepartment.isEmpty()}">
-                                      <option selected value="<c:out value=""/>"><c:out value=""/></option>
-                                      <c:forEach var="departments" items="${departments}" begin="0">
-                                          <option value="<c:out value="${departments.name}"/>"><c:out value="${departments.name}"/></option>
-                                      </c:forEach>
-                                  </c:if>
                               </select>
                           </div>
                       </c:if>
@@ -220,25 +212,20 @@
                           <input type="email" name="emailEmployee"  value="<c:out value="${emailEmployee}"></c:out>">
                       </div>
 
-                      <c:if test="${departmentId>0}">
-                          <div>
-                              <b>Department - ${departmentName}</b>
-                              <input type="hidden" name="nameDepartment" value="<c:out value="${departmentName}"></c:out>">
-                          </div>
-                      </c:if>
-                      <c:if test="${departmentId==0}">
-                          <div>
-                              <c:if test="${errorFlag==1}">
-                                  <b><font size="1" color="red" face="Arial">${errorDepartmentEmployee}</font></b><br>
-                              </c:if>
-                              <p>Select the desired department:</p>
+                      <div>
+                          <c:if test="${errorFlag==1}">
+                              <b><font size="1" color="red" face="Arial">${errorDepartmentEmployee}</font></b><br>
+                          </c:if>
+                          <p>Select the desired department:</p>
                               <select name="nameDepartment">
                                   <c:if test="${nameDepartment!=null}">
                                       <c:forEach var="departments" items="${departments}" begin="0">
                                           <c:if test="${departments.name==nameDepartment}">
                                               <option selected value="<c:out value="${departments.name}"/>"><c:out value="${departments.name}"/></option>
                                           </c:if>
+                                          <c:if test="${departments.name!=nameDepartment}">
                                           <option value="<c:out value="${departments.name}"/>"><c:out value="${departments.name}"/></option>
+                                          </c:if>
                                       </c:forEach>
                                   </c:if>
                                   <c:if test="${nameDepartment==null}">
@@ -248,8 +235,7 @@
                                       </c:forEach>
                                   </c:if>
                               </select>
-                          </div>
-                      </c:if>
+                      </div>
 
                       <input type="submit" value="Update"><br/>
                   </form>

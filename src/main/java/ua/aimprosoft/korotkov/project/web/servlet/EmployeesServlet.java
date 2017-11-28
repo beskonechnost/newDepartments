@@ -35,9 +35,9 @@ public class EmployeesServlet extends HttpServlet {
         LOG.debug("departmentIdString -- > " + departmentIdString);
         List<Employee> employees = null;
         try {
+            request.setAttribute("departments",DaoDepartmentImpl.getInstance().findDepartments());
             if (departmentIdString == null || departmentIdString.isEmpty()) {
                 employees = DaoEmployeeImpl.getInstance().findAllEmployees();
-                request.setAttribute("departments",DaoDepartmentImpl.getInstance().findDepartments());
             } else {
                 employees = DaoEmployeeImpl.getInstance().findEmployeesThisDepartment(Integer.parseInt(departmentIdString));
             }
@@ -77,7 +77,7 @@ public class EmployeesServlet extends HttpServlet {
                 request.setAttribute("phoneEmployee", request.getParameter("phoneEmployee"));
                 request.setAttribute("emailEmployee", request.getParameter("emailEmployee"));
                 request.setAttribute("nameDepartment", request.getParameter("nameDepartment"));
-                
+
                 if ((request.getParameter("errorFlag") != null && Integer.parseInt(request.getParameter("errorFlag")) != -1) || (request.getParameter("errorFlag") == null)) {
                     request.setAttribute("errorFlag", 1);
                 }
@@ -95,6 +95,7 @@ public class EmployeesServlet extends HttpServlet {
                 Employee employee = null;
                 try {
                     employee = DaoEmployeeImpl.getInstance().findEmployeeById(Integer.parseInt(employeeId));
+                    request.setAttribute("nameDepartment", DaoDepartmentImpl.getInstance().getDepartmentById(employee.getIdDepartment()).getName());
                 } catch (DBException e) {
                     e.printStackTrace();
                 }
@@ -104,7 +105,6 @@ public class EmployeesServlet extends HttpServlet {
                 request.setAttribute("birthdayEmployee", employee.getBirthday());
                 request.setAttribute("phoneEmployee", employee.getPhone());
                 request.setAttribute("emailEmployee", employee.getEmail());
-                request.setAttribute("nameDepartment", request.getParameter("departmentName"));
                 request.setAttribute("flagUpdateEmployee", 1);
             } else {
                 Map<String, String> errorMap = checkAll(employees, employeeId, request.getParameter("firstNameEmployee"), request.getParameter("lastNameEmployee"),
