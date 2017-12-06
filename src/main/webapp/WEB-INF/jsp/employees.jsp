@@ -6,6 +6,7 @@
 <c:set var="title" value="Employees" scope="page" />
 <link rel="stylesheet" href="../../style/style.css">
 <body>
+<div class="bg"></div>
     <div class="links">
         <a href="/departments">All departments</a>
         <a href="/employees?errorFlag=-1">All employees</a>
