@@ -4,70 +4,68 @@
 
 <html>
 <title>Departments</title>
+<link rel="stylesheet" href="../../style/style.css">
 <body>
-<a href="/departments">All departments</a>
-<a href="/employees?errorFlag=-1">All employees</a>
-<table id="main-container">
-
-    <tr>
-        <td>
-            <form>
+<div class="links">
+    <a href="/departments">All departments</a>
+    <a href="/employees?errorFlag=-1">All employees</a>
+</div>
+    <div class="box">
                 <table border="1">
                     <thead>
                     <tr>
-                        <td>Name department</td>
-                        <td>List employees</td>
-                        <td>Update department</td>
-                        <td>Delete department</td>
+                        <th>Name department</th>
+                        <th>List employees</th>
+                        <th>Update department</th>
+                        <th>Delete department</th>
                     </tr>
                     </thead>
 
                     <c:forEach var="item" items="${departments}" begin="0">
                         <tr>
-                            <td>${item.name}</td>
+                            <td class="element_table_text">${item.name}</td>
                             <td>
-                                <form action="/employees" method="post">
+                                <form class="center_button" action="/employees" method="post">
                                     <input type="hidden" name="departmentId" value="${item.id}" />
                                     <input type="hidden" name="departmentName" value="${item.name}" />
                                     <input type="hidden" name="errorFlag" value="${-1}" />
-                                    <input type="submit" value="List">
+                                    <input class="center_button_style" type="submit" value="List">
                                 </form>
                             </td>
                             <td>
-                                <form action="/departments">
+                                <form class="center_button" action="/departments">
                                     <input type="hidden" name="updateDepartmentId" value="${item.id}" />
                                     <input type="hidden" name="updateDepartmentName" value="${item.name}" />
                                     <input type="hidden" name="flagUpdateDepartment" value="${1}" />
-                                    <input type="submit" value="Update">
+                                    <input class="center_button_style" type="submit" value="Update">
                                 </form>
                             </td>
                             <td>
-                                <form action="/departments">
+                                <form class="center_button" action="/departments">
                                     <input type="hidden" name="deleteDepartmentId" value="${item.id}" />
                                     <input type="hidden" name="deleteDepartmentName" value="${item.name}" />
                                     <input type="hidden" name="flagDeleteDepartment" value="${1}" />
-                                    <input type="submit" value="Delete">
+                                    <input class="center_button_style" type="submit" value="Delete">
                                 </form>
                             </td>
                         </tr>
                     </c:forEach>
                 </table>
-            </form>
-        </td>
-        <td class="content">
+    </div>
+    <div class="box">
             <c:if test="${flagUpdateDepartment!=1}">
                 <c:if test="${flagDeleteDepartment!=1}">
-                    <fieldset >
+                    <fieldset>
                     <legend>Add new department</legend>
                     <form id="add_form" action="/departments">
                         <div>
                             <c:if test="${errorFlag==1}">
-                                <b><font size="1" color="red" face="Arial">${errorAddNewDepartment}</font></b><br>
+                                <b class="error_text">${errorAddNewDepartment}</b><br>
                             </c:if>
-                            <b>Enter the name of a new department: </b>
-                            <input name="nameNewDepartment" value="<c:out value="${nameNewDepartment}"></c:out>">
-                        </div>
-                        <input type="submit" value="Add New Department"><br/>
+                            <b class="element_label_text">Enter the name of a new department: </b>
+                            <input type="text" name="nameNewDepartment" value="<c:out value="${nameNewDepartment}"></c:out>">
+                        </div></br>
+                        <input class="center_button_style" type="submit" value="Add New Department"><br/>
                     </form>
                     </fieldset><br>
                 </c:if>
@@ -80,8 +78,8 @@
                     <input type="hidden" name="deleteDepartmentId" value="${deleteDepartmentId}" />
                     <input type="hidden" name="deleteDepartmentName" value="${deleteDepartmentName}" />
                     <input type="hidden" name="flagDeleteDepartment" value="${2}" />
-                    <p><b>Are you sure you want to delete "${deleteDepartmentName}" department and all its employees?</b></p>
-                    <input type="submit" value="Delete">
+                    <p><b class="element_label_text">Are you sure you want to delete "${deleteDepartmentName}" department and all its employees?</b></p>
+                    <input class="center_button_style" type="submit" value="Delete">
                 </form>
             </fieldset>
             </c:if>
@@ -96,18 +94,16 @@
 
                     <div>
                         <c:if test="${errorFlag==1}">
-                            <b><font size="1" color="red" face="Arial">${errorUpdateDepartment}</font></b><br>
+                            <b class="error_text">${errorUpdateDepartment}</b><br>
                         </c:if>
-                        <b>Enter a new name this department:</b>
-                        <input name="newNameUpdateDepartment" value="<c:out value="${updateDepartmentName}"></c:out>">
-                    </div>
-                    <input type="submit" value="Update"><br/>
+                        <b class="element_label_text">Enter a new name this department:</b>
+                        <input type="text" name="newNameUpdateDepartment" value="<c:out value="${updateDepartmentName}"></c:out>">
+                    </div></br>
+                    <input class="center_button_style" type="submit" value="Update"><br/>
                 </form>
             </fieldset>
             </c:if>
-        </td>
-    </tr>
+    </div>
 
-</table>
 </body>
 </html>
