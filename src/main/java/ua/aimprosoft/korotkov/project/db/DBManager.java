@@ -5,6 +5,7 @@ import ua.aimprosoft.korotkov.project.exception.Messages;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
+import java.util.Properties;
 
 /**
  * Created by Андрей on 25.10.2017.
@@ -18,6 +19,7 @@ public class DBManager {
     private static String USERNAME = "root";
     private static String PASSWORD = "root";
     private static String URL = "jdbc:mysql://localhost:3306/departments";
+
 
     public static synchronized DBManager getInstance() throws DBException {
         if (instance == null) {
@@ -37,9 +39,14 @@ public class DBManager {
 
     public static Connection getConnection() throws DBException {
         Connection con = null;
+        Properties properties = new Properties();
+        properties.put("user", USERNAME);
+        properties.put("password",PASSWORD);
+        properties.put("useUnicode","true");
+        properties.put("characterEncoding","UTF-8");
         try {
             getInstance();
-            con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            con = DriverManager.getConnection(URL, properties);
             con.setAutoCommit(false);
         } catch (SQLException ex) {
             LOG.error(Messages.ERR_CANNOT_OBTAIN_CONNECTION, ex);

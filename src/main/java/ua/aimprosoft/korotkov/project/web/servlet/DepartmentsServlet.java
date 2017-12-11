@@ -49,6 +49,7 @@ public class DepartmentsServlet extends HttpServlet {
             if (flagUpdateDepartment == null && flagDeleteDepartment == null) {
                 boolean flagErrorAddNewDepartment = false;
                 String nameNewDepartment = request.getParameter("nameNewDepartment");
+                LOG.debug("nameNewDepartment -- > "+nameNewDepartment);
                 if (nameNewDepartment == null) {
                     flagErrorAddNewDepartment = true;
                     String errorAddNewDepartment = "Please enter the name of the new department!";
@@ -75,8 +76,14 @@ public class DepartmentsServlet extends HttpServlet {
                 }
 
                 if (flagErrorAddNewDepartment) {
-                    request.setAttribute("errorFlag", 1);
-                    request.setAttribute("nameNewDepartment", nameNewDepartment);
+                    String s = request.getParameter("some");
+                    if(s==null || s.isEmpty()) {
+                        request.setAttribute("errorFlag", 0);
+                        request.setAttribute("nameNewDepartment", nameNewDepartment);
+                    }else {
+                        request.setAttribute("errorFlag", 1);
+                        request.setAttribute("nameNewDepartment", nameNewDepartment);
+                    }
                 } else {
                     Department department = new Department(nameNewDepartment);
                     try {
@@ -132,9 +139,16 @@ public class DepartmentsServlet extends HttpServlet {
                     request.setAttribute("errorUpdateDepartment", errorUpdateDepartment);
                 }
                 if (flagErrorUpdateDepartment) {
-                    request.setAttribute("errorFlag", 1);
-                    request.setAttribute("updateDepartmentName", updateDepartmentName);
-                    request.setAttribute("flagUpdateDepartment", flagUpdateDepartment);
+                    String s = request.getParameter("some");
+                    if(s==null || s.isEmpty()) {
+                        request.setAttribute("errorFlag", 0);
+                        request.setAttribute("updateDepartmentName", updateDepartmentName);
+                        request.setAttribute("flagUpdateDepartment", flagUpdateDepartment);
+                    }else {
+                        request.setAttribute("errorFlag", 1);
+                        request.setAttribute("updateDepartmentName", updateDepartmentName);
+                        request.setAttribute("flagUpdateDepartment", flagUpdateDepartment);
+                    }
                 } else {
                     Department department = new Department(Integer.parseInt(updateDepartmentId), updateDepartmentName);
                     try {

@@ -66,6 +66,7 @@
                             <b class="element_label_text">Enter the name of a new department: </b>
                             <input type="text" name="nameNewDepartment" value="<c:out value="${nameNewDepartment}"></c:out>">
                         </div></br>
+                        <input type="hidden" name="some" value="${1}" />
                         <input class="center_button_style" type="submit" value="Add New Department"><br/>
                     </form>
                     </fieldset><br>
@@ -92,6 +93,7 @@
                     <input type="hidden" name="updateDepartmentId" value="${updateDepartmentId}" />
                     <input type="hidden" name="updateDepartmentName" value="${updateDepartmentName}" />
                     <input type="hidden" name="flagUpdateDepartment" value="${1}" />
+                    <input type="hidden" name="some" value="${1}" />
 
                     <div>
                         <c:if test="${errorFlag==1}">
