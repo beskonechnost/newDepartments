@@ -124,7 +124,7 @@
                       <c:if test="${departmentId>0}">
                           <div>
                               <b class="element_label_text">Department - ${departmentName}</b>
-                              <input type="hidden" name="nameDepartment" value="<c:out value="${nameDepartment}"></c:out>">
+                              <input type="hidden" name="nameDepartment" value="<c:out value="${departmentName}"></c:out>">
                           </div></br>
                       </c:if>
                       <c:if test="${departmentId==null || departmentId==0 || departmentId.isEmpty()}">
