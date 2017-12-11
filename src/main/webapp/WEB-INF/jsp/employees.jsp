@@ -134,8 +134,11 @@
                           </c:if>
                               <b class="element_label_text">Select the desired department:</b>
                               <select class="styled-select" name="nameDepartment">
+                                        <c:if test="${nameDepartment==null || nameDepartment.isEmpty()}">
+                                            <option selected value="<c:out value=""/>"><c:out value=""/></option>
+                                        </c:if>
                                       <c:forEach var="departments" items="${departments}" begin="0">
-                                          <c:if test="${departments.name==nameDepartment}">
+                                          <c:if test="${departments.name==departmentName}">
                                               <option selected value="<c:out value="${departments.name}"/>"><c:out value="${departments.name}"/></option>
                                           </c:if>
                                           <option value="<c:out value="${departments.name}"/>"><c:out value="${departments.name}"/></option>
