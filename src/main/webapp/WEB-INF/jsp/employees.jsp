@@ -30,13 +30,14 @@
         <table border="1">
           <thead>
           <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Birthday</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Update</th>
-            <th>Delete</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Birthday</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Department name</th>
+              <th>Update</th>
+              <th>Delete</th>
           </tr>
           </thead>
 
@@ -47,6 +48,13 @@
               <td class="element_table_text">${item.birthday}</td>
               <td class="element_table_text">${item.phone}</td>
               <td class="element_table_text">${item.email}</td>
+                <td class="element_table_text">
+                    <c:forEach var="department" items="${departments}" begin="0">
+                        <c:if test="${item.idDepartment==department.id}">
+                            ${department.name}
+                        </c:if>
+                    </c:forEach>
+                </td>
               <td>
                     <form class="center_button" action="/employees">
                         <input type="hidden" name="departmentId" value="${departmentId}" />
